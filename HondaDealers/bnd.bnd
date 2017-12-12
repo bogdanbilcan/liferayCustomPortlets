@@ -1,6 +1,3 @@
-
 Bundle-SymbolicName: com.logika.custom.honda.dealerapp
 Bundle-Version: 1.0
-Export-Package: \
-	com.oracle,\
-	com.logika.custom.honda.dealerapp.constants
+Export-Package: com.logika.custom.honda.dealerapp.constants
