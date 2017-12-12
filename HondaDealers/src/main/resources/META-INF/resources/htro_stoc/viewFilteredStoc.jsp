@@ -6,12 +6,12 @@
 
 	System.out.println("keywords1 stocFiltered==> " + keywords1);
 	System.out.println("keywords2 stocFiltered==> " + keywords2);
-	
+
 	List<StocItem> stocItems1 = DBConnection.getInstance().GetFilteredStocItems(keywords1, keywords2);
 	int listSize = stocItems1.size();
-	
+
 	System.out.println("stocItems1.isEmpty() stocFiltered==> " + stocItems1.isEmpty());
-	
+
 	String noResults = "Nu s-au gasit automobile in baza de date conform filtrelor aplicate.";
 
 	PortletURL portletURL = renderResponse.createRenderURL();
@@ -35,11 +35,9 @@
 	<liferay-ui:header title="Filtrare Lista Automobile" />
 	<liferay-portlet:renderURLParams varImpl="cautaURL" />
 	<div class="search-form">
-		<span class="aui-search-bar"> 
-		<aui:input label="Tip Auto" name="keywords1" size="30" type="text" /> 
-		<aui:input label="Culoare" name="keywords2" size="30" type="text" />
-		
-			 <aui:button-row>
+		<span class="aui-search-bar"> <aui:input label="Tip Auto" name="keywords1" size="30" type="text" /> <aui:input
+				label="Culoare" name="keywords2" size="30" type="text"
+			/> <aui:button-row>
 				<aui:button type="submit" value="Filtreaza" />
 				<aui:button onClick="<%=portofoliuURL.toString()%>" value="Deschide Portofoliu" />
 			</aui:button-row>
@@ -56,14 +54,15 @@
 
 	<liferay-ui:search-container-results>
 		<%
-total=listSize;
-results=ListUtil.subList(stocItems1, searchContainer.getStart(),(searchContainer.getEnd() < listSize) ? searchContainer.getEnd():listSize);
+			total = listSize;
+					results = ListUtil.subList(stocItems1, searchContainer.getStart(),
+							(searchContainer.getEnd() < listSize) ? searchContainer.getEnd() : listSize);
 
-pageContext.setAttribute("results", results);
-pageContext.setAttribute("total", total);
-portletURL.setParameter("cur", searchContainer.getCurParam());
-System.out.println("filteredStoc Cur PRINT:" + searchContainer.getCur());
-%>
+					pageContext.setAttribute("results", results);
+					pageContext.setAttribute("total", total);
+					portletURL.setParameter("cur", searchContainer.getCurParam());
+					System.out.println("filteredStoc Cur PRINT:" + searchContainer.getCur());
+		%>
 	</liferay-ui:search-container-results>
 
 	<liferay-ui:search-container-row className="StocItem" keyProperty="HTRO_CAR_NO" modelVar="stocItem"
