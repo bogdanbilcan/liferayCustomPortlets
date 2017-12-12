@@ -23,7 +23,7 @@
 		<portlet:param name="numeVanzator" value="<%=userFullName%>" />
 		<portlet:param name="dealerID" value="<%=dealerID%>" />
 		<%-- 	<portlet:param name="dealerID" value="<%=stocItem.getRES_DEALER_ID()%>" /> --%>
-		<portlet:param name="mvcPath" value="/htro_actions/rezerva.jsp"></portlet:param>
+		<portlet:param name="mvcPath" value="/htro_actions/adaugaRezervare.jsp"></portlet:param>
 	</portlet:renderURL>
 
 	<aui:button-row>

@@ -41,7 +41,7 @@
 </aui:form>
 
 <liferay-ui:search-container id="<%="viewPortofoliuFilteredSearch"%>" iteratorURL="<%=portletURL%>"
-	deltaConfigurable="<%=true%>" emptyResultsMessage="<%=noResults%>" total="<%=listSize%>"
+	deltaConfigurable="<%=true%>" emptyResultsMessage="<%=noResults%>"
 >
 
 	<%--  iteratorURL="<%=portletURL%>"  --%>

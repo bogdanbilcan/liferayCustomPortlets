@@ -41,7 +41,7 @@
 </aui:form>
 
 <liferay-ui:search-container id="<%="viewPortofoliuSearch"%>" iteratorURL="<%=portletURL%>"
-	deltaConfigurable="<%=true%>" emptyResultsMessage="<%=noResults%>" total="<%=listSize%>"
+	deltaConfigurable="<%=true%>" emptyResultsMessage="<%=noResults%>"
 >
 	<%--  iteratorURL="<%=portletURL%>"  --%>
 	<%-- 	<liferay-ui:search-container-results results="<%=portofoliuItems.subList(searchContainer.getStart(),((searchContainer.getEnd() < listSize) ? searchContainer.getEnd():listSize))%>"/> --%>

@@ -57,7 +57,7 @@
 			<portlet:param name="carNo" value="<%=String.valueOf(portofoliuItem.getHTRO_CAR_NO())%>" />
 			<portlet:param name="numeClient" value="<%=String.valueOf(portofoliuItem.getNUME_CLIENT())%>" />
 			<portlet:param name="tipRezervare" value="<%=String.valueOf(portofoliuItem.getTIP_LINIE())%>" />
-			<portlet:param name="mvcPath" value="/htro_actions/updateNumeClient.jsp"></portlet:param>
+			<portlet:param name="mvcPath" value="/htro_actions/updateNume.jsp"></portlet:param>
 		</liferay-portlet:renderURL>
 
 		<liferay-ui:icon message="<%="Actualizare Nume Client"%>" url="<%=updateClientNameURL.toString()%>" />

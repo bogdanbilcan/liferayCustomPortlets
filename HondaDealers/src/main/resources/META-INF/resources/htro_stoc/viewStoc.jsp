@@ -8,8 +8,12 @@
 	System.out.println("keywords2 stoc==> " + keywords2);
 
 	List<StocItem> stocItems1 = DBConnection.getInstance().GetFilteredStocItems(keywords1, keywords2);
-	String displayStyle = ParamUtil.getString(request, "displayStyle", "list");
+	List<StocItem> stocItems = DBConnection.getInstance().GetAllStocItems();
+
 	String noResults = "Nu s-au gasit automobile in baza de date conform filtrelor aplicate.";
+
+	PortletURL portletURL = renderResponse.createRenderURL();
+	portletURL.setParameter("jspPage", "/htro_stoc/viewStoc.jsp");
 %>
 
 
@@ -24,35 +28,48 @@
 <aui:form action="<%=searchURL%>" method="get" name="fm">
 	<liferay-portlet:renderURLParams varImpl="searchURL" />
 	<liferay-ui:header title="Filtrare Lista Automobile" />
-	 	<div class="search-form"> 
-	<!-- 		<span class="aui-search-bar">  -->
-	
-	<aui:input label="Tip Autovehicul" name="keywords1" size="30" type="text" />
-	<aui:input label="Culoare Exterior" name="keywords2" size="30" type="text" />
-	
-	<aui:button-row>
-		<aui:button type="submit" value="Filtreaza" />
-		<aui:button onClick="<%=portofoliuURL.toString()%>" value="Deschide Portofoliu"></aui:button>
-	</aui:button-row>
-	<!-- 		</span> -->
-	 	</div>
+	<div class="search-form">
+		<!-- 		<span class="aui-search-bar">  -->
+
+		<aui:input label="Tip Autovehicul" name="keywords1" size="30" type="text" />
+		<aui:input label="Culoare Exterior" name="keywords2" size="30" type="text" />
+
+		<aui:button-row>
+			<aui:button type="submit" value="Filtreaza" />
+			<aui:button onClick="<%=portofoliuURL.toString()%>" value="Deschide Portofoliu"></aui:button>
+		</aui:button-row>
+		<!-- 		</span> -->
+	</div>
 </aui:form>
 
 
-<jsp:useBean class="java.util.ArrayList" id="stocItems" scope="request" />
+<%-- <jsp:useBean class="java.util.ArrayList" id="stocItems" scope="request" /> --%>
 
+<%
+	int listSize = stocItems.size();
+%>
 <!-- <div class="container-fluid-1280"> -->
-<liferay-ui:search-container id="viewStocSearch" emptyResultsMessage="<%=noResults%>" total="<%=stocItems.size()%>">
+<liferay-ui:search-container id="viewStocSearch" deltaConfigurable="true" emptyResultsMessage="<%=noResults%>"
+	iteratorURL="<%=portletURL%>"
+>
 
-<%-- <liferay-ui:search-container-results results="<%=DBConnection.getInstance().GetAllStocItems(searchContainer.getStart(),searchContainer.getEnd())%>"/> --%>
-<%-- <liferay-ui:search-container-results results="<%=stocItems%>"/> --%>
-<liferay-ui:search-container-results results="<%=stocItems.subList(searchContainer.getStart(),((searchContainer.getEnd() < stocItems.size()) ? searchContainer.getEnd():stocItems.size()))%>"/>
+	<liferay-ui:search-container-results>
+		<%
+			total = listSize;
+					results = ListUtil.subList(stocItems, searchContainer.getStart(),
+							(searchContainer.getEnd() < listSize) ? searchContainer.getEnd() : listSize);
+					pageContext.setAttribute("results", results);
+					pageContext.setAttribute("total", total);
+					portletURL.setParameter("cur", searchContainer.getCurParam());
+					System.out.println("filteredStoc Cur PRINT:" + searchContainer.getCur());
+		%>
+	</liferay-ui:search-container-results>
 
 	<liferay-ui:search-container-row className="StocItem" keyProperty="HTRO_CAR_NO" modelVar="stocItem">
 
-		<liferay-ui:search-container-column-jsp align="left" path="/htro_actions/butonRezerva.jsp" name="Actiuni"/>
-<%-- 		<liferay-ui:search-container-column-text property="HTRO_CAR_NO" /> --%>
-<%-- 		<liferay-ui:search-container-column-text property="RES_DEALER_ID" /> --%>
+		<liferay-ui:search-container-column-jsp align="left" path="/htro_actions/butonRezerva.jsp" name="Actiuni" />
+		<%-- 		<liferay-ui:search-container-column-text property="HTRO_CAR_NO" /> --%>
+		<%-- 		<liferay-ui:search-container-column-text property="RES_DEALER_ID" /> --%>
 		<liferay-ui:search-container-column-text property="AN_FABRICATIE_CIV" name="An Fabricatie CIV" />
 		<liferay-ui:search-container-column-text property="TIP_AUTOVEHICUL" name="Tip Autovehicul" />
 		<liferay-ui:search-container-column-text property="COD_CULOARE_EXTERIO" name="Cod Culoare" />
@@ -67,6 +84,6 @@
 		<liferay-ui:search-container-column-text property="DATA_EXPIRARE_REZ" name="Data expirare rezervare" />
 	</liferay-ui:search-container-row>
 
-	<liferay-ui:search-iterator displayStyle="<%= displayStyle %>" markupView="lexicon" />
+	<liferay-ui:search-iterator displayStyle="<%="list"%>" markupView="lexicon" />
 </liferay-ui:search-container>
 <!-- </div> -->
